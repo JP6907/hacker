@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!doctype html> <!--声明文档类型 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Description" content="描述">
+    <title>Document</title>
+
+    <style>
+        body{
+            margin:0;
+        }
+        canvas{
+            background:#000;
+        }
+     </style>
+</head>
+
+    <body>
+        <canvas id ="canvas" width="500" height="500">您的浏览器不支持canvas标签，请您更换浏览器！></canvas>
+        <script> 
+            var can = document.getElementById("canvas");
+            var ctx = can.getContext("2d");
+            var s = window.screen;
+            var w = can.width = s.width;
+            var h = can.height = s.height;
+            <!-- 绘制文本 -->
+            //ctx.fillStyle = "#fff";
+            //ctx.fillText("玄武",200,200);
+            var words = Array(256).join("1").split("");  //记录坐标
+            function draw(){
+                //透明矩形框，覆盖前面，实现渐变效果
+                ctx.fillStyle = "rgba(0,0,0,0.05)";
+                ctx.fillRect(0,0,w,h); //绘制矩形
+                //65-90  A-Z  97-122 a-z
+                var text = String.fromCharCode(65+Math.ceil(Math.random()*57));  //随机字母
+                //console.log(text);
+                ctx.fillStyle = "#0f0";  //绿色
+                //ctx.fillStyle = color1();  //随机颜色
+                words.map(function(y,index){ //数组里面每个元素的一个映射
+                    //console.log(index);
+                    var x = index*10;
+                    ctx.fillText(text,x,y);
+                    words[index] = (y > 748 + Math.random()*452)?0:y+10;
+                })
+            }
+            //draw();
+            setInterval(draw,100);
+            
+            
+        </script>
+    </body>
+
+</html>
